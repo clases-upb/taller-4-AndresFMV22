@@ -10,9 +10,18 @@ public class App {
 
     public static void main(String[] args) {
         
-        //Coloque los llamados a cada función de acuerdo con cada enunciado
-        //codifique el control de errores para el main
+         try {
+            System.out.println(grupos_impar(100)); 
+            System.out.println(Fiabonacci(10));
+    
+            System.out.println(generar_numeros_aleatorios(1,10));
+            System.out.println(sumar_numeros_aleatorios(100));
+            System.out.println(simular_sorteo());
 
+
+        } catch (Exception e) {
+           return -1;
+        }
 
     }
 
@@ -25,6 +34,33 @@ public class App {
      * hasta ese número separados por comas en grupos de hasta 8 números.
      * 
     */
+     public static String grupos_impar(int numero) {
+
+        String resultado = "";
+        int contador_impares = 0; 
+    
+        try {
+            if (numero < 100 || numero > 500) {
+                return "El número debe estar entre 100 y 500";
+            }
+    
+            for (int impar = 1; impar <= numero; impar++) {
+                if (impar % 2 != 0) {
+                    resultado = resultado + impar + ", " + "\t"; contador_impares ++;
+                    if (contador_impares % 8 == 0 ) {
+                        resultado = resultado + "\n";
+                    }
+                }
+            }
+           
+        } catch (Exception e) {
+            return "Ocurrio un error inesperado"; 
+        }
+        
+        return resultado;
+    }
+
+   
 
     /* 2. 	Escriba una función que reciba un entero N mayor de 2  y retorne un string cono esos N términos de la 
     serie de Fibonacci (La sucesión de Fibonacci se trata de una serie infinita de números naturales que empieza con un 0 y un 1 
@@ -33,6 +69,28 @@ public class App {
      * 
      * 
     */
+     public static String Fiabonacci (int N){
+        try {
+            int entero1 = 2;
+            int entero2 = 2; 
+            String resultado = entero1 + ", " + entero2;
+           
+
+            if (N <= 2){
+                return "El numero N debe ser mayor a 2";
+            }
+            for (int numero = 2; numero <= N; numero ++){
+               int numero_siguiente = entero1 + entero2;
+               resultado = resultado + " , " + numero_siguiente;
+               entero1 = entero2;
+               entero2 = numero_siguiente;
+            }
+            return resultado; 
+            
+        } catch (Exception e) {
+            return "Ocurrio un error inesperado";
+        }
+    }
 
     /* 
      * 3.	Diseñar y desarrollar una función que NO reciba datos de entrada, genere aleatoriamente un número entre 2 y 355, 
@@ -42,8 +100,25 @@ public class App {
        de veces que va a llamar a la función y en un ciclo, mostrar los resultados.
 
     */
+    public static double calcular_raiz_cuadrada() {
+        
+        try {
+        int cantidad_llamadas = (int) (Math.random() * (30 - 20 + 1)) + 20;
+        for (int num = 0; num < cantidad_llamadas; num++) {
+            double resultado = calcular_raiz_cuadrada();
+            System.out.println("Raíz cuadrada del número aleatorio: " + resultado);
+        }
+            int numero_aleatorio = (int) (Math.random() * (355 - 2 + 1)) + 2;
+            double raiz = Math.sqrt(numero_aleatorio);
+            return raiz;
 
+        } catch (Exception e) {
+            System.out.println("Ocurrió un error: ");
+            return 0.0; 
+        }
+}
 
+//No supe como hacerlo bien, igualmente pongo la funcion para una retroalimentacion, gracias =)
 
 
     /*4.	Diseñar y desarrollar una función que reciba un valor inicial y un valor final, para generar 900 números aleatorios 
@@ -52,6 +127,34 @@ public class App {
 
         Llame la función desde el main e imprimir el resultado arrojado.
     */
+     public static String generar_numeros_aleatorios(int valor_inicial, int valor_final) {
+
+          try {
+
+            if (valor_inicial >= valor_final) {
+                return "El valor inicial debe ser menor que el valor final";
+            }
+    
+            int contador_pares = 0;
+    
+            for (int num = 0; num < 900; num++) {
+                int numero_aleatorio = (int) (Math.random() * (valor_final - valor_inicial + 1)) + valor_inicial;
+                if (numero_aleatorio % 2 == 0) {
+                    contador_pares ++;
+                }
+            }
+    
+            return "Se generaron " + contador_pares + " números pares";
+        
+            
+          } catch (Exception e) {
+           return "Ocurrio un error inesperado";
+          }
+
+        }
+    
+            
+    
 
 
 
@@ -63,6 +166,25 @@ public class App {
 
       
     */
+    public static double sumar_numeros_aleatorios(int cantidad_numeros) {
+
+            try {
+
+                int minimo = 1;
+                int maximo = 100;
+                double suma = 0.0;
+        
+                for (int num = 0; num < cantidad_numeros; num++) {
+                    int numero_aleatorio = (int) (Math.random() * (maximo - minimo + 1)) + minimo;
+                    suma = suma + numero_aleatorio;
+                }
+        
+                return suma;
+                
+            } catch (Exception e) {
+                return -1;
+            }
+        }
 
 
     /* 6.	Se requiere una función para simular el sorteo de una lotería, de acuerdo con las siguientes condiciones:
@@ -104,5 +226,25 @@ public class App {
      * 
      * 
     */
+     public static String simular_sorteo() {
+        String resultado = "======Premios Menores=======\n";
+    
+        for (int num = 20; num > 5; num--) {
+            resultado = resultado + "Sorteo # " + num + " - Número Premiado " + (int) (Math.random() * 10000) + " - Serie "
+             + ((int) (Math.random() * 51) + 100) + "\n";
+        }
+    
+        resultado = resultado + "\n======Premios Secos=========\n";
+        for (int num1 = 5; num1 > 1; num1--) {
+            resultado = resultado + "Sorteo # " + num1 + " - Número Premiado " + (int) (Math.random() * 10000) + " - Serie " 
+            + ((int) (Math.random() * 51) + 100) + "\n";
+        }
+    
+        resultado = resultado + "\n======Premio Mayor==========\n";
+        resultado = resultado + "Sorteo # 1 - Número Premiado " + (int) (Math.random() * 10000) + " - Serie " +
+         ((int) (Math.random() * 51) + 100) + "\n";
+    
+        return resultado;
+    }
 
 }
